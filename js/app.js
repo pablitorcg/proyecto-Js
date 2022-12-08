@@ -6,7 +6,7 @@ window.addEventListener('load', () => {
     formulario.addEventListener('submit', buscarClima);
     formulario.reset();
 
-    // Muestra el clima almacenado en el Storage
+    
     while(resultado) {
         let datos = JSON.parse(localStorage.getItem('resultado'));
         mostrarClima(datos)
@@ -17,17 +17,17 @@ window.addEventListener('load', () => {
 function buscarClima(e) {
     e.preventDefault();
 
-    // Validar 
+    
     const ciudad = document.querySelector('#ciudad').value;
     const pais = document.querySelector('#pais').value;
 
     if (ciudad === '' || pais === ''){
-        // Hubo un error
+        
         mostrarError()
         return;
     }
 
-        // Libreria SweetAlert2
+        
     function mostrarError() {
         Swal.fire({
         icon: 'error',        
@@ -35,7 +35,7 @@ function buscarClima(e) {
         )
     }
 
-    // Consultar la API
+    
     consultarAPI(ciudad, pais);    
 }
 
@@ -43,12 +43,12 @@ function consultarAPI(ciudad, pais){
     const appID = 'c44c2359dd36f323d66551a9b935416c';
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${ciudad},${pais}&appid=${appID}`;
 
-    Spinner(); // Muestra un spinner de carga
+    Spinner(); 
     
     fetch(url)
     .then(respuesta=>respuesta.json())
     .then(datos => {        
-        // Limpiar HTML previo
+        
         limpiarHTML()
 
         if (datos.cod === '404') {
@@ -63,7 +63,7 @@ function consultarAPI(ciudad, pais){
 
         sincronizarStorage();
 
-        // Imprime la respuesta en el HTML
+    
         mostrarClima(datos);
         }
     )
@@ -126,7 +126,7 @@ function mostrarClima(datos){
 }
 
 
-// función para transformar los grados 
+
 const kelvinACentigrados = grados => parseInt(grados - 273.15);
 
 function limpiarHTML() {
